@@ -9,7 +9,7 @@ const io = new Server(server);
 const port = process.env.PORT || 3009
 
 app.get('/', (req, res) => {
-   res.sendFile(__dirname + '/index.html');
+   res.send("OK!!!");
 });
 
 io.on('connection', (socket) => {
