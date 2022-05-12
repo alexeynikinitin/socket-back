@@ -1,14 +1,21 @@
 import express from 'express';
 import http from 'http';
-import { Server } from  "socket.io";
-import cors from "cors";
+import {Server} from "socket.io"
+
+const port = 8080;
+const messages = [
+   {message: "1111111111111"},
+   {message: "2222222222222"}
+]
 
 const app = express();
-app.use(cors())
 const server = http.createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+   cors: {
+      origin: "*",
+   },
+});
 
-const port = process.env.PORT || 3009
 
 app.get('/', (req, res) => {
    res.send("OK!!!");
@@ -16,10 +23,15 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
    console.log('a user connected');
+   socket.on('client-message-sent', (payload: string) => {
+      console.log(payload);
+      io.emit('client-message-sent', payload)
+   });
+   socket.emit('init-messages-loaded', messages)
 });
 
 server.listen(port, () => {
-   console.log('listening on *:3009');
+   console.log('listening on *:8080');
 });
 
 //  git push heroku main
