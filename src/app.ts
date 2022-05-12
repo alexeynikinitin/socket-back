@@ -2,7 +2,7 @@ import http from 'http';
 import express from 'express';
 import {Server} from "socket.io";
 
-const port = 8080;
+const port = process.env.PORT || 8080;
 const messages = [
    {message: "1111111111111"},
    {message: "2222222222222"},
@@ -36,3 +36,4 @@ server.listen(port, () => {
 });
 
 //  git push heroku main
+//  heroku git:remote -a socket-chat-back
