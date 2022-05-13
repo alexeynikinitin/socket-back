@@ -27,7 +27,7 @@ map.set(io, {message: "", user: { id: new Date().getTime().toString(), name: "an
 
 io.on('connection', (socket) => {
    console.log('a user connected');
-   socket.on('set-name-client', (name) => {
+   socket.on('client-name-set', (name) => {
       if (typeof name === "string")
          map.get(io).user.name = name
    });
